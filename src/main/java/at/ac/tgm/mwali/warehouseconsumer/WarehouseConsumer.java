@@ -4,10 +4,10 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MessageConsumer {
+public class WarehouseConsumer {
 
     @KafkaListener(topics = "quickstart-events")
-    public void processMessage(String content) {
+    public void receive(String content) {
         System.out.println( "Read from Message Queue: " + content);
     }
 
