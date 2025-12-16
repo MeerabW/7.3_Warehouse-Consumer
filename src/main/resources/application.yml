@@ -1,9 +1,20 @@
 server:
   port: 8081
+
 spring:
   application:
-    name: "Warehouse-Producer"
+    name: "Warehouse-Consumer"
+
   kafka:
-    bootstrap-servers: "localhost:9092"
+    bootstrap-servers: localhost:9092
+
     consumer:
-      group-id: "myGroup"
+      group-id: myGroup
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+
+      properties:
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.trusted.packages: "at.ac.tgm.mwali.shared"
+        spring.json.value.default.type: at.ac.tgm.mwali.shared.WarehouseData
